@@ -1,72 +1,98 @@
-
 # SaaS Customer Onboarding Dashboard
 
-A React and Firebase application for managing SaaS customer onboarding, tracking milestones, scheduling follow-ups, and monitoring customer activation.
+A web-based customer onboarding management application built with **React.js and Firebase** to streamline customer onboarding, track milestones, manage follow-ups, and monitor activation progress.
 
 ## Live Demo
 
-https://tourmaline-caramel-983ba4.netlify.app
+**Website:** https://dashboardset.netlify.app
 
 ## Features
 
-- Customer onboarding management
-- Customer registration and status tracking
-- Onboarding milestone checklist
-- Automatic progress calculation
-- Real-time Firebase Firestore updates
-- Customer search and status filtering
-- Follow-up scheduling and overdue alerts
-- Follow-up completion tracking
-- Customer activity history
-- Analytics and reporting dashboard
-- Responsive user interface
+- **Customer Management:** Add and manage customer records.
+- **Onboarding Tracking:** Track account setup, configuration, training, and activation.
+- **Progress Monitoring:** Automatically calculate onboarding completion percentages.
+- **Real-Time Updates:** Synchronize customer records using Firebase Firestore.
+- **Search and Filtering:** Find customers by name and onboarding status.
+- **Follow-up Management:** Schedule follow-ups and identify overdue customers.
+- **Activity History:** Record customer interactions, notes, and outcomes.
+- **Analytics Dashboard:** Monitor onboarding completion rates and customer progress.
+- **Responsive Design:** Support desktop and mobile layouts.
 
 ## Tech Stack
 
-- Frontend: React.js, JavaScript, CSS
-- Build Tool: Vite
-- Database: Firebase Firestore
-- Authentication: Firebase Anonymous Authentication
-- Deployment: Netlify
-- Version Control: Git and GitHub
+| Category | Technology |
+|---|---|
+| Frontend | React.js, JavaScript, CSS |
+| Build Tool | Vite |
+| Database | Firebase Firestore |
+| Authentication | Firebase Anonymous Authentication |
+| Deployment | Netlify |
+| Version Control | Git, GitHub |
 
 ## Project Architecture
 
-React Components
-    |
-    v
+```text
+React.js Frontend
+       |
+       v
 Firebase Authentication
-    |
-    v
+       |
+       v
 Cloud Firestore
-    |
-    v
-Real-time Customer Data
+       |
+       v
+Real-Time Customer Updates
+       |
+       v
+Dashboard & Analytics
+```
 
-## Run Locally
+## Installation and Setup
 
-1. Clone the repository.
-2. Install dependencies:
+**1. Clone the repository**
 
-   npm install
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+```
 
-3. Configure Firebase in src/firebase.js.
-4. Enable Firebase Authentication and Firestore.
-5. Start the application:
+**2. Navigate to the project**
 
-   npm run dev
+```bash
+cd saas-customer-onboarding-dashboard
+```
+
+**3. Install dependencies**
+
+```bash
+npm install
+```
+
+**4. Configure Firebase**
+
+Create a Firebase project, register a web app, and configure `src/firebase.js` using your Firebase web configuration.
+
+Enable Anonymous Authentication, create a Firestore database, and configure appropriate Firestore Security Rules.
+
+**5. Start the development server**
+
+```bash
+npm run dev
+```
 
 ## Future Improvements
 
 - Email/password authentication
 - Role-based access control
-- Team collaboration
-- Customer notifications
-- CSV and PDF reports
-- Automated follow-up reminders
+- Multi-user team collaboration
+- Automated follow-up notifications
+- CSV and PDF report exports
+- Customer adoption analytics
+- Automated testing
 
 ## Project Status
 
-Portfolio prototype built with fictional customer data.
-Production use requires stronger authentication,
-authorization, and security testing.
+**Deployed portfolio prototype**
+
+This project demonstrates customer onboarding workflows, React state management, Firebase integration, and real-time data handling.
+
+The application is intended for demonstration with fictional customer data. Production use requires additional authentication, authorization, and security testing.
