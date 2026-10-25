@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
@@ -8,12 +8,6 @@ function FollowUp({ customer }) {
   const [note, setNote] = useState(customer.followUpNote || "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-
-  // Keep form synchronized with the selected customer
-  useEffect(() => {
-    setDate(customer.followUpDate || "");
-    setNote(customer.followUpNote || "");
-  }, [customer.id, customer.followUpDate, customer.followUpNote]);
 
   // SAVE OR RESCHEDULE FOLLOW-UP
   async function saveFollowUp() {
