@@ -1,16 +1,72 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# SaaS Customer Onboarding Dashboard
 
-Currently, two official plugins are available:
+A React and Firebase application for managing SaaS customer onboarding, tracking milestones, scheduling follow-ups, and monitoring customer activation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+https://tourmaline-caramel-983ba4.netlify.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Customer onboarding management
+- Customer registration and status tracking
+- Onboarding milestone checklist
+- Automatic progress calculation
+- Real-time Firebase Firestore updates
+- Customer search and status filtering
+- Follow-up scheduling and overdue alerts
+- Follow-up completion tracking
+- Customer activity history
+- Analytics and reporting dashboard
+- Responsive user interface
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- Frontend: React.js, JavaScript, CSS
+- Build Tool: Vite
+- Database: Firebase Firestore
+- Authentication: Firebase Anonymous Authentication
+- Deployment: Netlify
+- Version Control: Git and GitHub
+
+## Project Architecture
+
+React Components
+    |
+    v
+Firebase Authentication
+    |
+    v
+Cloud Firestore
+    |
+    v
+Real-time Customer Data
+
+## Run Locally
+
+1. Clone the repository.
+2. Install dependencies:
+
+   npm install
+
+3. Configure Firebase in src/firebase.js.
+4. Enable Firebase Authentication and Firestore.
+5. Start the application:
+
+   npm run dev
+
+## Future Improvements
+
+- Email/password authentication
+- Role-based access control
+- Team collaboration
+- Customer notifications
+- CSV and PDF reports
+- Automated follow-up reminders
+
+## Project Status
+
+Portfolio prototype built with fictional customer data.
+Production use requires stronger authentication,
+authorization, and security testing.
