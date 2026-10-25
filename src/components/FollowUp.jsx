@@ -33,12 +33,19 @@ function FollowUp({ customer }) {
         customer.id
       );
 
-      await updateDoc(customerRef, {
+      const dateChanged = date !== (customer.followUpDate || "");
+      const updates = {
         followUpDate: date,
-        followUpNote: note,
-        followUpStatus: date ? "Pending" : "Not Scheduled",
-        followUpCompletedAt: null
-      });
+        followUpNote: note
+      };
+
+      // Reopen only when rescheduling, not when editing notes.
+      if (dateChanged) {
+        updates.followUpStatus = date ? "Pending" : "Not Scheduled";
+        updates.followUpCompletedAt = null;
+      }
+
+      await updateDoc(customerRef, updates);
 
       alert("Follow-up saved successfully!");
     } catch (err) {
