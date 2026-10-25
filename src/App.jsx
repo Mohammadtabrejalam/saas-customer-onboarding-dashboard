@@ -31,6 +31,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [adding, setAdding] = useState(false);
+  const [loadingCustomers, setLoadingCustomers] = useState(true);
 
   // ============================
   // 2. FIREBASE AUTHENTICATION
@@ -64,8 +65,11 @@ function App() {
   useEffect(() => {
     if (!user) {
       setCustomers([]);
+      setLoadingCustomers(true);
       return;
     }
+
+    setLoadingCustomers(true);
 
     const customerCollection = collection(
       db,
@@ -83,8 +87,11 @@ function App() {
         }));
 
         setCustomers(data);
+        setLoadingCustomers(false);
+        setError("");
       },
       (err) => {
+        setLoadingCustomers(false);
         setError(err.message);
       }
     );
@@ -354,15 +361,18 @@ function App() {
 
       {/* CUSTOMER RECORDS */}
 
-      {filteredCustomers.length === 0 && (
+      {loadingCustomers ? (
+        <p role="status">Loading customers...</p>
+      ) : filteredCustomers.length === 0 && !error ? (
         <p>No matching customers found.</p>
-      )}
+      ) : null}
 
       {filteredCustomers.map((customer) => {
 
         const isOverdue =
           customer.followUpDate &&
           customer.followUpDate < today &&
+          customer.followUpStatus !== "Completed" &&
           customer.status !== "Completed";
 
         return (
