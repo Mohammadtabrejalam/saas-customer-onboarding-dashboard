@@ -31,6 +31,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [adding, setAdding] = useState(false);
+  const [loadingCustomers, setLoadingCustomers] = useState(true);
 
   // ============================
   // 2. FIREBASE AUTHENTICATION
@@ -41,8 +42,12 @@ function App() {
       auth,
       async (currentUser) => {
         if (currentUser) {
+          setCustomers([]);
+          setLoadingCustomers(true);
           setUser(currentUser);
         } else {
+          setCustomers([]);
+          setLoadingCustomers(true);
           setUser(null);
 
           try {
@@ -62,10 +67,7 @@ function App() {
   // ============================
 
   useEffect(() => {
-    if (!user) {
-      setCustomers([]);
-      return;
-    }
+    if (!user) return;
 
     const customerCollection = collection(
       db,
@@ -83,8 +85,11 @@ function App() {
         }));
 
         setCustomers(data);
+        setLoadingCustomers(false);
+        setError("");
       },
       (err) => {
+        setLoadingCustomers(false);
         setError(err.message);
       }
     );
@@ -354,15 +359,18 @@ function App() {
 
       {/* CUSTOMER RECORDS */}
 
-      {filteredCustomers.length === 0 && (
+      {loadingCustomers ? (
+        <p role="status">Loading customers...</p>
+      ) : filteredCustomers.length === 0 && !error ? (
         <p>No matching customers found.</p>
-      )}
+      ) : null}
 
       {filteredCustomers.map((customer) => {
 
         const isOverdue =
           customer.followUpDate &&
           customer.followUpDate < today &&
+          customer.followUpStatus !== "Completed" &&
           customer.status !== "Completed";
 
         return (
@@ -410,7 +418,7 @@ function App() {
     />
 
     <FollowUp
-      key={currentCustomer.id}
+      key={`${currentCustomer.id}:${currentCustomer.followUpDate || ""}:${currentCustomer.followUpNote || ""}`}
       customer={currentCustomer}
     />
 

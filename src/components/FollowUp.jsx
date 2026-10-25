@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
@@ -8,12 +8,6 @@ function FollowUp({ customer }) {
   const [note, setNote] = useState(customer.followUpNote || "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-
-  // Keep form synchronized with the selected customer
-  useEffect(() => {
-    setDate(customer.followUpDate || "");
-    setNote(customer.followUpNote || "");
-  }, [customer.id, customer.followUpDate, customer.followUpNote]);
 
   // SAVE OR RESCHEDULE FOLLOW-UP
   async function saveFollowUp() {
@@ -33,12 +27,19 @@ function FollowUp({ customer }) {
         customer.id
       );
 
-      await updateDoc(customerRef, {
+      const dateChanged = date !== (customer.followUpDate || "");
+      const updates = {
         followUpDate: date,
-        followUpNote: note,
-        followUpStatus: date ? "Pending" : "Not Scheduled",
-        followUpCompletedAt: null
-      });
+        followUpNote: note
+      };
+
+      // Reopen only when rescheduling, not when editing notes.
+      if (dateChanged) {
+        updates.followUpStatus = date ? "Pending" : "Not Scheduled";
+        updates.followUpCompletedAt = null;
+      }
+
+      await updateDoc(customerRef, updates);
 
       alert("Follow-up saved successfully!");
     } catch (err) {
