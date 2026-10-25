@@ -42,8 +42,12 @@ function App() {
       auth,
       async (currentUser) => {
         if (currentUser) {
+          setCustomers([]);
+          setLoadingCustomers(true);
           setUser(currentUser);
         } else {
+          setCustomers([]);
+          setLoadingCustomers(true);
           setUser(null);
 
           try {
@@ -63,13 +67,7 @@ function App() {
   // ============================
 
   useEffect(() => {
-    if (!user) {
-      setCustomers([]);
-      setLoadingCustomers(true);
-      return;
-    }
-
-    setLoadingCustomers(true);
+    if (!user) return;
 
     const customerCollection = collection(
       db,
@@ -420,7 +418,7 @@ function App() {
     />
 
     <FollowUp
-      key={currentCustomer.id}
+      key={`${currentCustomer.id}:${currentCustomer.followUpDate || ""}:${currentCustomer.followUpNote || ""}`}
       customer={currentCustomer}
     />
 
